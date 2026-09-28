@@ -16,8 +16,9 @@
 
 # Import built-in json library for handling input/output 
 import json
-
-
+from src.integer.BigInt import BigInt
+from src.integer.addition import add
+from src.integer.subtraction import subtract
 
 def solve_exercise(exercise_location : str, answer_location : str):
     """
@@ -33,16 +34,23 @@ def solve_exercise(exercise_location : str, answer_location : str):
         
 
     ### Parse and solve ###
+    radix = exercise["radix"]
+    operation = exercise["operation"]
+    x = BigInt.from_string(exercise["x"], radix)
+    y = BigInt.from_string(exercise["y"], radix) if "y" in exercise else None
+    modulus = (BigInt.from_string(exercise["modulus"], radix)
+               if "modulus" in exercise else None)
+    result = None
 
     # Check type of exercise
     if exercise["type"] == "integer_arithmetic":
         # Check what operation within the integer arithmetic operations we need to solve
         if exercise["operation"] == "addition":
             # Solve integer arithmetic addition exercise
-            pass
+            result = add(x, y)
         elif exercise["operation"] == "subtraction":
             # Solve integer arithmetic subtraction exercise
-            pass
+            result = subtract(x, y)
         elif exercise["operation"] == "multiplication_primary":
             # Solve integer arithmetic multiplication exercise using the primary school method
             pass
@@ -70,7 +78,16 @@ def solve_exercise(exercise_location : str, answer_location : str):
             # Solve modular arithmetic multiplication exercise
             pass
 
-    answer = "TEST ANSWER"
+    if operation == "extended_euclidean_algorithm":
+        if result is None:
+            answer = {"answer-a": None, "answer-b": None, "answer-gcd": None}
+        else:
+            a, b, gcd = result 
+            answer = {"answer-a": a.to_string(),
+                      "answer-b": b.to_string(),
+                      "answer-gcd": gcd.to_string()}
+    else:
+        answer = {"answer": None if result is None else result.to_string()}
 
     with open(answer_location, "w") as answer_file:
         json.dump(answer, answer_file, indent=4)
