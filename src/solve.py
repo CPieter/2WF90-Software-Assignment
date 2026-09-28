@@ -43,14 +43,33 @@ def solve_exercise(exercise_location : str, answer_location : str):
         elif exercise["operation"] == "subtraction":
             # Solve integer arithmetic subtraction exercise
             pass
-        # et cetera
+        elif exercise["operation"] == "multiplication_primary":
+            # Solve integer arithmetic multiplication exercise using the primary school method
+            pass
+        elif exercise["operation"] == "extended_euclidean_algorithm":
+            # Perform the extended Euclidean algorithm
+            pass
+        elif exercise["operation"] == "multiplication_karatsuba":
+            # Solve integer arithmetic multiplication exercise using the Karatsuba method
+            pass
     else: # exercise["type"] == "modular_arithmetic"
         # Check what operation within the modular arithmetic operations we need to solve
         if exercise["operation"] == "reduction":
             # Solve modular arithmetic reduction exercise
             pass
-        # et cetera
-
+        elif exercise["operation"] == "inversion":
+            # Solve modular arithmetic inversion exercise
+            pass
+        elif exercise["operation"] == "addition":
+            # Solve modular arithmetic addition exercise
+            pass
+        elif exercise["operation"] == "subtraction":
+            # Solve modular arithmetic subtraction exercise
+            pass
+        elif exercise["operation"] == "multiplication":
+            # Solve modular arithmetic multiplication exercise
+            pass
+        
 
     # Open file at answer_location for writing, creating the file if it does not exist yet
     # (and overwriting it if it does already exist).
