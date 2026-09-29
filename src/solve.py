@@ -14,80 +14,67 @@
 # author_name_4 (author_student_ID_4)
 ##
 
-# Import built-in json library for handling input/output 
 import json
+
 from src.integer.BigInt import BigInt
 from src.integer.addition import add
 from src.integer.subtraction import subtract
 
-def solve_exercise(exercise_location : str, answer_location : str):
-    """
-    solves an exercise specified in the file located at exercise_location and
-    writes the answer to a file at answer_location. Note: the file at
-    answer_location might not exist yet and, hence, might still need to be created.
-    """
-    
-    # Open file at exercise_location for reading.
-    with open(exercise_location, "r") as exercise_file:
-        # Deserialize JSON exercise data present in exercise_file to corresponding Python exercise data 
-        exercise = json.load(exercise_file)
-        
-
-    ### Parse and solve ###
+def solve(exercise: dict) -> dict:
     radix = exercise["radix"]
     operation = exercise["operation"]
+
     x = BigInt.from_string(exercise["x"], radix)
     y = BigInt.from_string(exercise["y"], radix) if "y" in exercise else None
-    modulus = (BigInt.from_string(exercise["modulus"], radix)
-               if "modulus" in exercise else None)
+    modulus = (
+        BigInt.from_string(exercise["modulus"], radix)
+        if "modulus" in exercise
+        else None
+    )
+
     result = None
 
-    # Check type of exercise
     if exercise["type"] == "integer_arithmetic":
-        # Check what operation within the integer arithmetic operations we need to solve
-        if exercise["operation"] == "addition":
-            # Solve integer arithmetic addition exercise
+        if operation == "addition":
             result = add(x, y)
-        elif exercise["operation"] == "subtraction":
-            # Solve integer arithmetic subtraction exercise
+        elif operation == "subtraction":
             result = subtract(x, y)
-        elif exercise["operation"] == "multiplication_primary":
-            # Solve integer arithmetic multiplication exercise using the primary school method
+        elif operation == "multiplication_primary":
             pass
-        elif exercise["operation"] == "extended_euclidean_algorithm":
-            # Perform the extended Euclidean algorithm
+        elif operation == "extended_euclidean_algorithm":
             pass
-        elif exercise["operation"] == "multiplication_karatsuba":
-            # Solve integer arithmetic multiplication exercise using the Karatsuba method
+        elif operation == "multiplication_karatsuba":
             pass
-    else: # exercise["type"] == "modular_arithmetic"
-        # Check what operation within the modular arithmetic operations we need to solve
-        if exercise["operation"] == "reduction":
-            # Solve modular arithmetic reduction exercise
+
+    elif exercise["type"] == "modular_arithmetic":
+        if operation == "reduction":
             pass
-        elif exercise["operation"] == "inversion":
-            # Solve modular arithmetic inversion exercise
+        elif operation == "inversion":
             pass
-        elif exercise["operation"] == "addition":
-            # Solve modular arithmetic addition exercise
+        elif operation == "addition":
             pass
-        elif exercise["operation"] == "subtraction":
-            # Solve modular arithmetic subtraction exercise
+        elif operation == "subtraction":
             pass
-        elif exercise["operation"] == "multiplication":
-            # Solve modular arithmetic multiplication exercise
+        elif operation == "multiplication":
             pass
 
     if operation == "extended_euclidean_algorithm":
         if result is None:
-            answer = {"answer-a": None, "answer-b": None, "answer-gcd": None}
-        else:
-            a, b, gcd = result 
-            answer = {"answer-a": a.to_string(),
-                      "answer-b": b.to_string(),
-                      "answer-gcd": gcd.to_string()}
-    else:
-        answer = {"answer": None if result is None else result.to_string()}
+            return {"answer-a": None, "answer-b": None, "answer-gcd": None}
+        a, b, gcd = result
+        return {
+            "answer-a": a.to_string(),
+            "answer-b": b.to_string(),
+            "answer-gcd": gcd.to_string(),
+        }
+
+    return {"answer": None if result is None else result.to_string()}
+
+def solve_exercise(exercise_location: str, answer_location: str) -> None:
+    with open(exercise_location, "r") as exercise_file:
+        exercise = json.load(exercise_file)
+
+    answer = solve(exercise)
 
     with open(answer_location, "w") as answer_file:
         json.dump(answer, answer_file, indent=4)

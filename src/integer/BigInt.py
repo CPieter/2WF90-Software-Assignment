@@ -1,4 +1,3 @@
-
 DIGITS = "0123456789ABCDEF"
 
 class BigInt:
@@ -47,7 +46,40 @@ class BigInt:
             if self.words[i] != other.words[i]:
                 return 1 if self.words[i] > other.words[i] else -1
         return 0
-    
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, BigInt) or self.radix != other.radix:
+            return False
+        if self.is_zero() and other.is_zero():
+            return True
+        return self.negative == other.negative and self.words == other.words
+
+    def __lt__(self, other: "BigInt") -> bool:
+        if not isinstance(other, BigInt):
+            return NotImplemented
+        if self.radix != other.radix:
+            raise ValueError("Radices must match")
+
+        if self.is_zero() and other.is_zero():
+            return False
+        if self.negative != other.negative:
+            return self.negative
+
+        mag = self.compare_magnitude(other)
+        return mag < 0 if not self.negative else mag > 0
+
+    def __le__(self, other: "BigInt") -> bool:
+        return self < other or self == other
+
+    def __gt__(self, other: "BigInt") -> bool:
+        return not (self <= other)
+
+    def __ge__(self, other: "BigInt") -> bool:
+        return not (self < other)
+
+    def __ne__(self, other: object) -> bool:
+        return not (self == other)
+
     def __neg__(self) -> "BigInt":
         return BigInt(self.words, self.radix, not self.negative)
     
