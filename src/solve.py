@@ -19,6 +19,7 @@ import json
 from src.integer.BigInt import BigInt
 from src.integer.addition import add
 from src.integer.subtraction import subtract
+from src.modular.reduction import reduction
 
 def solve(exercise: dict) -> dict:
     radix = exercise["radix"]
@@ -48,7 +49,7 @@ def solve(exercise: dict) -> dict:
 
     elif exercise["type"] == "modular_arithmetic":
         if operation == "reduction":
-            pass
+            result = reduction(x, modulus)
         elif operation == "inversion":
             pass
         elif operation == "addition":
