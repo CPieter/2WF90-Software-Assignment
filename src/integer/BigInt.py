@@ -90,6 +90,9 @@ class BigInt:
     def __sub__(self, other: "BigInt") -> "BigInt":
         from src.integer.subtraction import subtract
         return subtract(self, other)
+
+    def __abs__(self) -> "BigInt":
+        return BigInt(self.words, self.radix, False)
     
     def __str__(self) -> str:
         return self.to_string()

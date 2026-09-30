@@ -16,8 +16,11 @@
 
 import json
 
+from src.integer import multiplication_primary
 from src.integer.BigInt import BigInt
 from src.integer.addition import add
+from src.integer.multiplication_karatsuba import multiply_karatsuba
+from src.integer.multiplication_primary import multiply_primary
 from src.integer.subtraction import subtract
 from src.modular.reduction import reduction
 from src.modular.inversion import inversion
@@ -43,11 +46,11 @@ def solve(exercise: dict) -> dict:
         elif operation == "subtraction":
             result = subtract(x, y)
         elif operation == "multiplication_primary":
-            pass
+            result = multiply_primary(x, y)
         elif operation == "extended_euclidean_algorithm":
             pass
         elif operation == "multiplication_karatsuba":
-            pass
+            result = multiply_karatsuba(x, y)
 
     elif exercise["type"] == "modular_arithmetic":
         if operation == "reduction":
