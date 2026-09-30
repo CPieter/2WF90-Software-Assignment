@@ -19,6 +19,7 @@ import json
 from src.integer import multiplication_primary
 from src.integer.BigInt import BigInt
 from src.integer.addition import add
+from src.integer.extended_euclidian_algorithm import extended_euclid
 from src.integer.multiplication_karatsuba import multiply_karatsuba
 from src.integer.multiplication_primary import multiply_primary
 from src.integer.subtraction import subtract
@@ -48,7 +49,7 @@ def solve(exercise: dict) -> dict:
         elif operation == "multiplication_primary":
             result = multiply_primary(x, y)
         elif operation == "extended_euclidean_algorithm":
-            pass
+            result = extended_euclid(x, y)
         elif operation == "multiplication_karatsuba":
             result = multiply_karatsuba(x, y)
 

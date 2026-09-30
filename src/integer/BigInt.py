@@ -91,8 +91,26 @@ class BigInt:
         from src.integer.subtraction import subtract
         return subtract(self, other)
 
+    def __mul__(self, other: "BigInt") -> "BigInt":
+        from src.integer.multiplication_primary import multiply_primary
+        from src.integer.multiplication_karatsuba import multiply_karatsuba
+
+        if min(len(self.words), len(other.words)) < 32:
+            return multiply_primary(self, other)
+        return multiply_karatsuba(self, other)
+
     def __abs__(self) -> "BigInt":
         return BigInt(self.words, self.radix, False)
+
+    def __divmod__(self, other: "BigInt") -> tuple["BigInt", "BigInt"]:
+        from src.integer.division import divmod_bigint
+        return divmod_bigint(self, other)
+
+    def __floordiv__(self, other: "BigInt") -> "BigInt":
+        return divmod(self, other)[0]
+
+    def __mod__(self, other: "BigInt") -> "BigInt":
+        return divmod(self, other)[1]
     
     def __str__(self) -> str:
         return self.to_string()
