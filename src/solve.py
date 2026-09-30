@@ -20,6 +20,7 @@ from src.integer.BigInt import BigInt
 from src.integer.addition import add
 from src.integer.subtraction import subtract
 from src.modular.reduction import reduction
+from src.modular.inversion import inversion
 
 def solve(exercise: dict) -> dict:
     radix = exercise["radix"]
@@ -51,7 +52,7 @@ def solve(exercise: dict) -> dict:
         if operation == "reduction":
             result = reduction(x, modulus)
         elif operation == "inversion":
-            pass
+            result = inversion(x, modulus)
         elif operation == "addition":
             result = reduction(add(x, y), modulus)
         elif operation == "subtraction":
