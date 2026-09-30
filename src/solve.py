@@ -53,9 +53,9 @@ def solve(exercise: dict) -> dict:
         elif operation == "inversion":
             pass
         elif operation == "addition":
-            pass
+            result = reduction(add(x, y), modulus)
         elif operation == "subtraction":
-            pass
+            result = reduction(subtract(x, y), modulus)
         elif operation == "multiplication":
             pass
 

@@ -1,4 +1,4 @@
-from integer.BigInt import BigInt
+from src.integer.BigInt import BigInt
 
 def reduction(x: BigInt, modulus: BigInt) -> BigInt | None:
     radix = x.radix
