@@ -21,6 +21,7 @@ from src.integer.addition import add
 from src.integer.subtraction import subtract
 from src.modular.reduction import reduction
 from src.modular.inversion import inversion
+from src.modular.multiplication import multiplication
 
 def solve(exercise: dict) -> dict:
     radix = exercise["radix"]
@@ -58,7 +59,7 @@ def solve(exercise: dict) -> dict:
         elif operation == "subtraction":
             result = reduction(subtract(x, y), modulus)
         elif operation == "multiplication":
-            pass
+            result = reduction(multiplication(x, y), modulus)
 
     if operation == "extended_euclidean_algorithm":
         if result is None:
