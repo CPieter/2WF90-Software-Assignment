@@ -8,15 +8,14 @@ def multiply_primary(x: BigInt, y: BigInt) -> BigInt:
         return BigInt([0], radix=x.radix)
 
     radix = x.radix
-    negative = x.negative != y.negative
-    words = [0] * (len(x.words) + len(y.words))
+    z = [0] * (len(x.words) + len(y.words))
 
     for i, xd in enumerate(x.words):
-        carry = 0
+        c = 0
         for j, yd in enumerate(y.words):
-            total = words[i + j] + xd * yd + carry
-            words[i + j] = total % radix
-            carry = total // radix
-        words[i + len(y.words)] += carry
+            t = z[i + j] + x.words[i] * y.words[j] + c
+            c = t // radix
+            z[i+j] = t - c * radix
+        z[i + len(y.words)] += c
 
-    return BigInt(words, radix, negative)
+    return BigInt(z, radix, x.negative != y.negative)

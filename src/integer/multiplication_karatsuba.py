@@ -14,24 +14,12 @@ def multiply_karatsuba(x: BigInt, y: BigInt) -> BigInt:
     y = abs(y)
 
     m = max(len(x.words), len(y.words)) // 2
-    x0, x1 = split(x, m)
-    y0, y1 = split(y, m)
+    x0, x1 = x.split(m)
+    y0, y1 = y.split(m)
 
     z0 = multiply_karatsuba(x0, y0)
     z2 = multiply_karatsuba(x1, y1)
     z1 = multiply_karatsuba(x0 + x1, y0 + y1) - z2 - z0
 
-    z = shift(z2, 2 * m) + shift(z1, m) + z0
+    z = z2.shift(2*m) + z1.shift(m) + z0
     return -z if negative else z
-
-
-def split(x: BigInt, m: int) -> tuple[BigInt, BigInt]:
-    low = x.words[:m] or [0]
-    high = x.words[m:] or [0]
-    return BigInt(low, x.radix), BigInt(high, x.radix)
-
-
-def shift(x: BigInt, k: int) -> BigInt:
-    if x.is_zero() or k == 0:
-        return x
-    return BigInt([0] * k + x.words, x.radix, x.negative)

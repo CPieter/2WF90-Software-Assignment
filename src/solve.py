@@ -5,13 +5,13 @@
 #
 #
 # Group number:
-# group_number 
+# 1
 #
 # Author names and student IDs:
-# author_name_1 (author_student_ID_1) 
-# author_name_2 (author_student_ID_2)
-# author_name_3 (author_student_ID_3)
-# author_name_4 (author_student_ID_4)
+# Juan José Mejía Trejos (2009404)
+# Ivan Dimitrov (2282526)
+# Quinn Grosse (2361175)
+# Pieter Conderaerts (1854208)
 ##
 
 import json
@@ -25,7 +25,6 @@ from src.integer.multiplication_primary import multiply_primary
 from src.integer.subtraction import subtract
 from src.modular.reduction import reduction
 from src.modular.inversion import inversion
-from src.modular.multiplication import multiplication
 
 def solve(exercise: dict) -> dict:
     radix = exercise["radix"]
@@ -63,7 +62,7 @@ def solve(exercise: dict) -> dict:
         elif operation == "subtraction":
             result = reduction(subtract(x, y), modulus)
         elif operation == "multiplication":
-            result = reduction(multiplication(x, y), modulus)
+            result = reduction(multiply_primary(x, y), modulus)
 
     if operation == "extended_euclidean_algorithm":
         if result is None:

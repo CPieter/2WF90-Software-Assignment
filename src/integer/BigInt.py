@@ -47,6 +47,19 @@ class BigInt:
                 return 1 if self.words[i] > other.words[i] else -1
         return 0
 
+    def split(self, m: int) -> tuple["BigInt", "BigInt"]:
+        return (
+            BigInt(self.words[:m] or [0], self.radix, False),
+            BigInt(self.words[m:] or [0], self.radix, False)
+        )
+
+    def shift(self, k: int) -> "BigInt":
+        if k < 0:
+            raise ValueError("k must be non-negative")
+        if self.is_zero() or k == 0:
+            return self
+        return BigInt([0] * k + self.words, self.radix, self.negative)
+
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, BigInt) or self.radix != other.radix:
             return False
@@ -103,7 +116,7 @@ class BigInt:
         return BigInt(self.words, self.radix, False)
 
     def __divmod__(self, other: "BigInt") -> tuple["BigInt", "BigInt"]:
-        from src.integer.division import divmod_bigint
+        from src.integer.divmod import divmod_bigint
         return divmod_bigint(self, other)
 
     def __floordiv__(self, other: "BigInt") -> "BigInt":
