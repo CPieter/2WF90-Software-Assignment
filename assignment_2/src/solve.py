@@ -17,7 +17,10 @@
 import json
 
 from polynomial.Polynomial import Polynomial
-from polynomial.addition import add
+from polynomial.addition import add as polynomial_add
+from polynomial.subtraction import subtract as polynomial_subtract
+from finite_field.addition import add as field_add
+from finite_field.subtraction import subtract as field_subtract
 
 
 def solve(exercise: dict) -> dict:
@@ -34,9 +37,9 @@ def solve(exercise: dict) -> dict:
 
     if exercise["type"] == "polynomial_arithmetic":
         if task == "addition":
-            result = add(f, g, int_mod)
+            result = polynomial_add(f, g, int_mod)
         elif task == "subtraction":
-            pass
+            result = polynomial_subtract(f, g, int_mod)
         elif task == "multiplication":
             pass
         elif task == "long_division":
@@ -50,9 +53,9 @@ def solve(exercise: dict) -> dict:
 
     elif exercise["type"] == "finite_field_arithmetic":
         if task == "addition":
-            pass
+            result = field_add(f, g, int_mod, pol_mod)
         elif task == "subtraction":
-            pass
+            result = field_subtract(f, g, int_mod, pol_mod)
         elif task == "multiplication":
             pass
         elif task == "division":
