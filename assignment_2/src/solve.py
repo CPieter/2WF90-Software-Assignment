@@ -18,8 +18,10 @@ import json
 
 from polynomial.Polynomial import Polynomial
 from polynomial.addition import add as polynomial_add
+from polynomial.extended_euclidean_algorithm import extended_euclidean_algorithm
+from polynomial.long_division import long_divide
 from polynomial.subtraction import subtract as polynomial_subtract
-from polynomial.multiplication import mult as polynomial_mult
+from polynomial.multiplication import multiply as polynomial_mult
 from finite_field.addition import add as field_add
 from finite_field.subtraction import subtract as field_subtract
 
@@ -27,26 +29,30 @@ from finite_field.subtraction import subtract as field_subtract
 def solve(exercise: dict) -> dict:
     task = exercise["task"]
 
-    f = Polynomial(exercise["f"]) if "f" in exercise else None
-    g = Polynomial(exercise["g"]) if "g" in exercise else None
-
     int_mod = exercise["integer_modulus"]
-    pol_mod = Polynomial(exercise["polynomial_modulus"]) if "polynomial_modulus" in exercise else None
+    pol_mod = Polynomial(exercise["polynomial_modulus"], int_mod) if "polynomial_modulus" in exercise else None
     degree = exercise["degree"] if "degree" in exercise else None
 
-    result = None
+    f = Polynomial(exercise["f"], int_mod) if "f" in exercise else None
+    g = Polynomial(exercise["g"], int_mod) if "g" in exercise else None
 
     if exercise["type"] == "polynomial_arithmetic":
         if task == "addition":
-            result = polynomial_add(f, g, int_mod)
+            return {"answer": polynomial_add(f, g).coeffs}
         elif task == "subtraction":
-            result = polynomial_subtract(f, g, int_mod)
+            return {"answer": polynomial_subtract(f, g).coeffs}
         elif task == "multiplication":
-            result = polynomial_mult(f, g, int_mod)
+            return {"answer": polynomial_mult(f, g).coeffs}
         elif task == "long_division":
-            pass
+            if g.is_zero():
+                return {"answer-q": None, "answer-r": None}
+            q, r = long_divide(f, g)
+            return {"answer-q": q.coeffs, "answer-r": r.coeffs}
         elif task == "extended_euclidean_algorithm":
-            pass
+            if f.is_zero() and g.is_zero():
+                return {"answer-a": None, "answer-b": None, "answer-gcd": None}
+            a, b, gcd = extended_euclidean_algorithm(f, g)
+            return {"answer-a": a.coeffs, "answer-b": b.coeffs, "answer-gcd": gcd.coeffs}
         elif task == "irreducibility_check":
             pass
         elif task == "irreducible_element_generation":
@@ -54,9 +60,9 @@ def solve(exercise: dict) -> dict:
 
     elif exercise["type"] == "finite_field_arithmetic":
         if task == "addition":
-            result = field_add(f, g, int_mod, pol_mod)
+            return {"answer": field_add(f, g, pol_mod).coeffs}
         elif task == "subtraction":
-            result = field_subtract(f, g, int_mod, pol_mod)
+            return {"answer": field_subtract(f, g, pol_mod).coeffs}
         elif task == "multiplication":
             pass
         elif task == "division":
@@ -66,11 +72,7 @@ def solve(exercise: dict) -> dict:
         elif task == "primitive_element_generation":
             pass
 
-    answer = {
-        "answer": result.coeffs,
-    }
-
-    return answer
+    return NotImplemented
 
 def solve_exercise(exercise_location: str, answer_location: str) -> None:
     with open(exercise_location, "r") as exercise_file:

@@ -1,9 +1,10 @@
 from polynomial.Polynomial import Polynomial
 
+def add(f: Polynomial, g: Polynomial) -> Polynomial:
+    if f.int_mod != g.int_mod:
+        raise ValueError("Cannot add polynomials with different moduli")
 
-def add(f: Polynomial, g: Polynomial, int_mod: int) -> Polynomial:
-    if int_mod < 2:
-        raise ValueError("The modulus must be greater than 1")
+    int_mod = f.int_mod
     n = max(len(f.coeffs), len(g.coeffs))
     coeffs = [0] * n
 
@@ -12,4 +13,4 @@ def add(f: Polynomial, g: Polynomial, int_mod: int) -> Polynomial:
         b = g.coeffs[i] if i < len(g.coeffs) else 0
         coeffs[i] = (a + b) % int_mod
 
-    return Polynomial(coeffs)
+    return Polynomial(coeffs, int_mod)
