@@ -42,7 +42,7 @@ def solve(exercise: dict) -> dict:
         elif task == "subtraction":
             result = polynomial_subtract(f, g, int_mod)
         elif task == "multiplication":
-            result = mult(f, g, int_mod)
+            result = polynomial_mult(f, g, int_mod)
         elif task == "long_division":
             pass
         elif task == "extended_euclidean_algorithm":
