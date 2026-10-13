@@ -19,6 +19,7 @@ import json
 from polynomial.Polynomial import Polynomial
 from polynomial.addition import add as polynomial_add
 from polynomial.subtraction import subtract as polynomial_subtract
+from polynomial.multiplication import mult as polynomial_mult
 from finite_field.addition import add as field_add
 from finite_field.subtraction import subtract as field_subtract
 
@@ -41,7 +42,7 @@ def solve(exercise: dict) -> dict:
         elif task == "subtraction":
             result = polynomial_subtract(f, g, int_mod)
         elif task == "multiplication":
-            pass
+            result = mult(f, g, int_mod)
         elif task == "long_division":
             pass
         elif task == "extended_euclidean_algorithm":
