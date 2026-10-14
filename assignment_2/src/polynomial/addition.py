@@ -1,8 +1,6 @@
 from polynomial.Polynomial import Polynomial
 
 def add(f: Polynomial, g: Polynomial) -> Polynomial:
-    if f.int_mod != g.int_mod:
-        raise ValueError("Cannot add polynomials with different moduli")
 
     int_mod = f.int_mod
     n = max(len(f.coeffs), len(g.coeffs))

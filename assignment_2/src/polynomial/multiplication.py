@@ -1,8 +1,6 @@
 from polynomial.Polynomial import Polynomial
 
 def multiply(f: Polynomial, g: Polynomial) -> Polynomial:
-    if f.int_mod != g.int_mod:
-        raise ValueError("Cannot multiply polynomials with different moduli")
 
     int_mod = f.int_mod
     n = len(f.coeffs)-1
