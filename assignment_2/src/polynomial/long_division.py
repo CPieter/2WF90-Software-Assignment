@@ -4,7 +4,7 @@ def long_divide(a: Polynomial, b: Polynomial) -> tuple[Polynomial, Polynomial]:
     if b.is_zero():
         raise ZeroDivisionError("Division by the zero polynomial")
 
-    int_mod = a.int_mod
+    int_mod = a.p
     q = Polynomial([0], int_mod)
     r = a.copy()
 

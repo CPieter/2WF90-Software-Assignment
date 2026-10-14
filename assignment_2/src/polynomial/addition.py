@@ -2,7 +2,7 @@ from polynomial.Polynomial import Polynomial
 
 def add(f: Polynomial, g: Polynomial) -> Polynomial:
 
-    int_mod = f.int_mod
+    int_mod = f.p
     n = max(len(f.coeffs), len(g.coeffs))
     coeffs = [0] * n
 

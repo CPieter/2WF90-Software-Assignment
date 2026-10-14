@@ -4,7 +4,7 @@ def extended_euclidean_algorithm(a: Polynomial, b: Polynomial) -> tuple[Polynomi
     if a.is_zero() and b.is_zero():
         raise ZeroDivisionError("gcd(0, 0) is undefined")
 
-    int_mod = a.int_mod
+    int_mod = a.p
 
     x = Polynomial([1], int_mod)
     y = Polynomial([0], int_mod)

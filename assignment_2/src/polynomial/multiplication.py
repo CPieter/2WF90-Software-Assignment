@@ -2,7 +2,7 @@ from polynomial.Polynomial import Polynomial
 
 def multiply(f: Polynomial, g: Polynomial) -> Polynomial:
 
-    int_mod = f.int_mod
+    int_mod = f.p
     n = len(f.coeffs)-1
     m = len(g.coeffs)-1
     mult_poly = [0] * (n+m+1)

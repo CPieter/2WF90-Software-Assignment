@@ -23,6 +23,8 @@ from finite_field.primitivity_check import is_primitive
 from polynomial.Polynomial import Polynomial
 from polynomial.addition import add as polynomial_add
 from polynomial.extended_euclidean_algorithm import extended_euclidean_algorithm
+from polynomial.irreducibility_check import is_irreducible
+from polynomial.irreducible_element_generation import generate_irreducible_element
 from polynomial.long_division import long_divide
 from polynomial.subtraction import subtract as polynomial_subtract
 from polynomial.multiplication import multiply as polynomial_mult
@@ -61,9 +63,9 @@ def solve(exercise: dict) -> dict:
             except ZeroDivisionError:
                 return {"answer-a": None, "answer-b": None, "answer-gcd": None}
         elif task == "irreducibility_check":
-            pass
+            return {"answer": is_irreducible(f)}
         elif task == "irreducible_element_generation":
-            pass
+            return {"answer": generate_irreducible_element(degree, int_mod).coeffs}
 
     elif exercise["type"] == "finite_field_arithmetic":
         if task == "addition":

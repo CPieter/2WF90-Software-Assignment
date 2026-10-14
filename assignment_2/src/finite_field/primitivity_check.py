@@ -16,12 +16,12 @@ def prime_divisors(n: int) -> list[int]:
 def is_primitive(a: Polynomial, h: Polynomial) -> bool:
     if a.is_zero():
         return False
-    q = h.int_mod ** h.degree()
+    q = h.p ** h.degree()
     p = prime_divisors(q -1)
     k = len(p)
     i = 0
 
-    while i < k and pow(a, (q - 1) // p[i], h) != Polynomial([1], h.int_mod):
+    while i < k and pow(a, (q - 1) // p[i], h) != Polynomial([1], h.p):
         i = i + 1
     return i == k
 
