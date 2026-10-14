@@ -1,10 +1,10 @@
 from polynomial.Polynomial import Polynomial
 
 def long_divide(a: Polynomial, b: Polynomial) -> tuple[Polynomial, Polynomial]:
-    if b.is_zero():
-        raise ZeroDivisionError("Division by the zero polynomial")
     if a.int_mod != b.int_mod:
         raise ValueError("Cannot divide polynomials with different moduli")
+    if b.is_zero():
+        raise ZeroDivisionError("Division by the zero polynomial")
 
     int_mod = a.int_mod
     q = Polynomial([0], int_mod)

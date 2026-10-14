@@ -47,15 +47,17 @@ def solve(exercise: dict) -> dict:
         elif task == "multiplication":
             return {"answer": polynomial_mult(f, g).coeffs}
         elif task == "long_division":
-            if g.is_zero():
+            try:
+                q, r = long_divide(f, g)
+                return {"answer-q": q.coeffs, "answer-r": r.coeffs}
+            except ZeroDivisionError:
                 return {"answer-q": None, "answer-r": None}
-            q, r = long_divide(f, g)
-            return {"answer-q": q.coeffs, "answer-r": r.coeffs}
         elif task == "extended_euclidean_algorithm":
-            if f.is_zero() and g.is_zero():
+            try:
+                a, b, gcd = extended_euclidean_algorithm(f, g)
+                return {"answer-a": a.coeffs, "answer-b": b.coeffs, "answer-gcd": gcd.coeffs}
+            except ZeroDivisionError:
                 return {"answer-a": None, "answer-b": None, "answer-gcd": None}
-            a, b, gcd = extended_euclidean_algorithm(f, g)
-            return {"answer-a": a.coeffs, "answer-b": b.coeffs, "answer-gcd": gcd.coeffs}
         elif task == "irreducibility_check":
             pass
         elif task == "irreducible_element_generation":
@@ -69,13 +71,15 @@ def solve(exercise: dict) -> dict:
         elif task == "multiplication":
             return {"answer": field_multiply(f, g, pol_mod).coeffs}
         elif task == "division":
-            if g.is_zero():
+            try:
+                return {"answer": divide(f, g, pol_mod).coeffs}
+            except ZeroDivisionError:
                 return {"answer": None}
-            return {"answer": divide(f, g, pol_mod).coeffs}
         elif task == "inversion":
-            if f.is_zero():
+            try:
+                return {"answer": invert(f, pol_mod).coeffs}
+            except ZeroDivisionError:
                 return {"answer": None}
-            return {"answer": invert(f, pol_mod).coeffs}
         elif task == "primitivity_check":
             pass
         elif task == "primitive_element_generation":

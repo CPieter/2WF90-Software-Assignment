@@ -3,6 +3,8 @@ from polynomial.Polynomial import Polynomial
 def extended_euclidean_algorithm(a: Polynomial, b: Polynomial) -> tuple[Polynomial, Polynomial, Polynomial]:
     if a.int_mod != b.int_mod:
         raise ValueError("Cannot perform extended euclidean algorithm on polynomials with different moduli")
+    if a.is_zero() and b.is_zero():
+        raise ZeroDivisionError("gcd(0, 0) is undefined")
 
     int_mod = a.int_mod
 
