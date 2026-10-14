@@ -16,6 +16,8 @@
 
 import json
 
+from finite_field.division import divide
+from finite_field.inversion import invert
 from polynomial.Polynomial import Polynomial
 from polynomial.addition import add as polynomial_add
 from polynomial.extended_euclidean_algorithm import extended_euclidean_algorithm
@@ -24,6 +26,7 @@ from polynomial.subtraction import subtract as polynomial_subtract
 from polynomial.multiplication import multiply as polynomial_mult
 from finite_field.addition import add as field_add
 from finite_field.subtraction import subtract as field_subtract
+from finite_field.multiplication import multiply as field_multiply
 
 
 def solve(exercise: dict) -> dict:
@@ -64,9 +67,15 @@ def solve(exercise: dict) -> dict:
         elif task == "subtraction":
             return {"answer": field_subtract(f, g, pol_mod).coeffs}
         elif task == "multiplication":
-            pass
+            return {"answer": field_multiply(f, g, pol_mod).coeffs}
         elif task == "division":
-            pass
+            if g.is_zero():
+                return {"answer": None}
+            return {"answer": divide(f, g, pol_mod).coeffs}
+        elif task == "inversion":
+            if f.is_zero():
+                return {"answer": None}
+            return {"answer": invert(f, pol_mod).coeffs}
         elif task == "primitivity_check":
             pass
         elif task == "primitive_element_generation":

@@ -71,10 +71,15 @@ class Polynomial:
         return subtract(self, other)
 
     def __mul__(self, other):
+        if isinstance(other, int):
+            return Polynomial([(c * other) % self.int_mod for c in self.coeffs], self.int_mod)
         if not isinstance(other, Polynomial):
             return NotImplemented
         from polynomial.multiplication import multiply
         return multiply(self, other)
+
+    def __rmul__(self, other):
+        return self.__mul__(other)
 
     def __divmod__(self, other):
         if not isinstance(other, Polynomial):

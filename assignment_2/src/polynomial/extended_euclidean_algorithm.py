@@ -22,5 +22,5 @@ def extended_euclidean_algorithm(a: Polynomial, b: Polynomial) -> tuple[Polynomi
         u = x_p - q * u
         v = y_p - q * v
 
-    c = Polynomial([pow(a.lc(), -1, int_mod)], int_mod)
+    c = pow(a.lc(), -1, int_mod)
     return x*c, y*c, a*c
