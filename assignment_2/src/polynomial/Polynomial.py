@@ -38,12 +38,6 @@ class Polynomial:
             return 0
         return self.coeffs[i]
     
-    def reduce_coefficients(self, p : int) -> "Polynomial":
-        if p < 2:
-            raise ValueError("The modulus must be greater than 1")
-        reduced = [coefficient % p for coefficient in self.coeffs]
-        return Polynomial(reduced, self.p)
-    
     def copy(self) -> "Polynomial":
         return Polynomial(self.coeffs, self.p)
     
@@ -53,15 +47,7 @@ class Polynomial:
         if self.is_zero() or k == 0:
             return self.copy()
         return Polynomial([0] * k + self.coeffs, self.p)
-    
-    def split(self, m: int) -> tuple["Polynomial", "Polynomial"]:
-        if m < 0:
-            raise ValueError("Split position must be non-negative")
-        return (
-            Polynomial(self.coeffs[:m], self.p),
-            Polynomial(self.coeffs[m:], self.p)
-        )
-    
+       
     def __eq__(self, other: object) -> bool:
         if not isinstance(other, Polynomial):
             return False
