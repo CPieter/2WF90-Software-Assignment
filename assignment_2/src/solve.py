@@ -18,6 +18,8 @@ import json
 
 from finite_field.division import divide
 from finite_field.inversion import invert
+from finite_field.primitive_element_generation import generate_primitive_element
+from finite_field.primitivity_check import is_primitive
 from polynomial.Polynomial import Polynomial
 from polynomial.addition import add as polynomial_add
 from polynomial.extended_euclidean_algorithm import extended_euclidean_algorithm
@@ -81,9 +83,9 @@ def solve(exercise: dict) -> dict:
             except ZeroDivisionError:
                 return {"answer": None}
         elif task == "primitivity_check":
-            pass
+            return {"answer": is_primitive(f, pol_mod)}
         elif task == "primitive_element_generation":
-            pass
+            return {"answer": generate_primitive_element(pol_mod).coeffs}
 
     return NotImplemented
 

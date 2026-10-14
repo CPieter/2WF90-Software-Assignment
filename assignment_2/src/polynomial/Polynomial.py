@@ -96,3 +96,15 @@ class Polynomial:
         if not isinstance(other, Polynomial):
             return NotImplemented
         return divmod(self, other)[1]
+
+    def __pow__(self, power, modulo=None):
+        if not isinstance(power, int):
+            return NotImplemented
+        if power < 0:
+            raise ValueError("Exponent must be non-negative")
+        if modulo is None:
+            raise ValueError("Use pow(x, a, h): a modulus polynomial is required")
+        if not isinstance(modulo, Polynomial):
+            return NotImplemented
+        from finite_field.exponentiation import bin_exp
+        return bin_exp(self, power, modulo)
